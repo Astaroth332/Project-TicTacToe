@@ -11,9 +11,14 @@ let Gameboard = (function() {
         gameboard[cellIndex].addMark(player);
     };
 
+    const clearCellBoard = () => {
+      gameboard.forEach(cell => cell.addMark(""))
+    };
+
     return {
         getBoard,
         putMark,
+        clearCellBoard,
     }
 })();
 
@@ -59,10 +64,8 @@ let Players = (function() {
 })();
 
 const GameController = (function() {
-
+       const board = Gameboard.getBoard();
        const checkWin = () => {
-        const board = Gameboard.getBoard();
-    
         const winPatterns = [
             [0, 1, 2],  
             [3, 4, 5],  
@@ -80,20 +83,17 @@ const GameController = (function() {
                 return true; 
            }
         }
-    
         return false; 
     }
 
-
         const checkForDraw = () => {
-        let board = Gameboard.getBoard();
         let checkIfAllCellOccupied = board.every(cell => cell.getValue() !== "");
         let noWinner = !checkWin()
         return checkIfAllCellOccupied && noWinner;
     }
       
       const playRound = (cellIndex) => {
-          Gameboard.putMark(cellIndex, Players.getActivePlayer().mark);
+      Gameboard.putMark(cellIndex,Players.getActivePlayer().mark);
 
       if (checkWin()) {
           return;
@@ -117,6 +117,7 @@ let screenController = (function() {
 
   const playerTurn = document.querySelector('.player-turn');
   const gameBoard = document.querySelector('.board');
+  const restartBtn = document.querySelector('.restart-btn button')
 
 
   const updateScreen = () => {
@@ -155,7 +156,12 @@ let screenController = (function() {
   }
 
   gameBoard.addEventListener('click', handleClickEvent);
-  
+
+  restartBtn.addEventListener('click', () => {
+  Gameboard.clearCellBoard();
+  updateScreen();
+  });
+
   return {
     updateScreen,
   }

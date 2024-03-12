@@ -11,27 +11,29 @@ body {
 
 .container {
     border: 1px solid black;
-    width: 65vw;
+    width: 60vw;
     margin: 5px auto;
     background-color: #05B2DC;
+    position: relative;
+    box-shadow: 2px 2px 2px black;
+
 }
 
 
 .heading {
-    text-align: center;
+    padding: 15px 0 0 15px;
     font-size: 1.1rem;
     margin-bottom: 12px;
 }
 
-.player-turn,
-.player-score {
-    font-size: 1.1rem;
-    margin-left: 25px;
+.player-turn{
+    font-size: 1.3rem;
+    text-align: center;
+    font-family: "Kanit", sans-serif;
 }
 
 .board {
- 
-    padding: 5px;
+    padding: 8px;
     display: grid;
     grid-template-columns: repeat(3, 140px);
     grid-template-rows: repeat(3, 140px);
@@ -47,6 +49,36 @@ body {
     align-items: center;
     font-size: 3.5rem;
     cursor: pointer;
-
 }
+
+.restart-btn {
+    position: absolute;
+    top: 110px;
+    left: 15px;
+  
+}
+
+.restart-btn button {
+    padding: 8px 10px;
+    width:  120px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    background-color: #031A6B;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-shadow: 2px 2px 2px black;
+}
+
+.restart-btn button:hover {
+    background-color: white;
+    color:#031A6B;
+}
+
+.restart-btn button:active {
+    opacity: .7;
+    box-shadow: 1px 1px 2px black;
+}
+
+
 
