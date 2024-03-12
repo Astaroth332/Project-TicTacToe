@@ -58,9 +58,11 @@ body {
   
 }
 
-.restart-btn button {
+
+.restart-btn button,
+.change-name-btn button {
     padding: 8px 10px;
-    width:  120px;
+    width:  130px;
     font-size: 18px;
     letter-spacing: 2px;
     font-weight: 600;
@@ -70,15 +72,88 @@ body {
     box-shadow: 2px 2px 2px black;
 }
 
-.restart-btn button:hover {
+.change-name-btn {
+    position: absolute;
+    top: 180px;
+    left: 15px;
+}
+
+
+.change-name-btn button {
+    letter-spacing: 1px;
+    padding: 8px 0;
+    width:  130px;
+}
+
+
+
+.restart-btn button:hover,
+.change-name-btn button:hover
+ {
     background-color: white;
     color:#031A6B;
 }
 
-.restart-btn button:active {
+.restart-btn button:active,
+.change-name-btn button:active
+{
     opacity: .7;
     box-shadow: 1px 1px 2px black;
 }
 
+.dialog-container {
+    padding: 35px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    background-color: #05B2DC;
+    border-radius: 12px;
+    box-shadow: 2px 2px 3px white;
+}
+
+.form-row {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.form-row label {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+}
+
+.form-row input[type="text"] {
+    padding: 5px;
+    color: white;
+    background-color: #031A6B;
+    border-radius: 5px;
+}
+
+.dialog-button {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.dialog-button button {
+    width: 120px;
+    padding: 7px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    color: white;
+    background-color: #031A6B;
+}
+
+.dialog-button button:hover {
+    background-color: white;
+    color: #031A6B;
+}
+
+.dialog-button button:active {
+    opacity: .7;
+}
 
 

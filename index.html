@@ -20,6 +20,30 @@
             <div class="restart-btn">
                 <button>Restart</button>
             </div>
+            <div class="change-name-btn">
+                <button>Change name</button>
+            </div>
+
+            <dialog id="change-name-dialog" class="dialog-container">
+                <form>
+                    <div class="form-row">
+                        <label for="player-one-name">Player one name:</label>
+                        <input type="text" id="player-one-name">
+                    </div>
+                    <div class="form-row">
+                        <label for="player-two-name">Player two name:</label>
+                        <input type="text" id="player-two-name">
+                    </div>
+                    <div class="dialog-button">
+                        <button id="confirm-btn">
+                            Confirm
+                        </button>
+                        <button formmethod="dialog" autofocus>
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </dialog>
     </div>
 
 </body>

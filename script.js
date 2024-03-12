@@ -50,6 +50,17 @@ let Players = (function() {
             mark:"O",
         },
     ];
+
+    
+    const getPlayerNewName = (playerOneNewName,playerTwoNewName) => {
+      if (playerOneNewName === "") {
+        playerOneNewName = playerOne;
+      } else if (playerTwoNewName === "") {
+        playerTwoNewName = playertwo;
+      }
+      players[0].name = playerOneNewName;
+      players[1].name = playerTwoNewName;
+     }
     
     let activePlayer = players[0];
 
@@ -57,9 +68,11 @@ let Players = (function() {
 
     const getActivePlayer = () => activePlayer;
 
+
     return {
         switchPlayer,
         getActivePlayer,
+        getPlayerNewName,
     }
 })();
 
@@ -160,6 +173,30 @@ let screenController = (function() {
   restartBtn.addEventListener('click', () => {
   Gameboard.clearCellBoard();
   updateScreen();
+  });
+
+  const changeNameBtn = document.querySelector('.change-name-btn');
+  const popUpModal = document.querySelector('#change-name-dialog');
+  const confirmBtn = document.querySelector('#confirm-btn');
+  const inputPlayerOneNewName = document.getElementById('player-one-name');
+  const inputPlayerTwoNewName = document.getElementById('player-two-name');
+
+
+  changeNameBtn.addEventListener('click', () => {
+    popUpModal.showModal();
+  });
+
+  popUpModal.addEventListener('close', () => {
+    inputPlayerOneNewName.value = "";
+    inputPlayerTwoNewName.value = "";
+  });
+
+  confirmBtn.addEventListener('click',(e) => {
+    e.preventDefault();
+    Players.getPlayerNewName(inputPlayerOneNewName.value,inputPlayerTwoNewName.value);
+    Gameboard.clearCellBoard();
+    updateScreen()
+    popUpModal.close();
   });
 
   return {
