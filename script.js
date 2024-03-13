@@ -215,16 +215,21 @@ let screenController = (function() {
     if (GameController.checkWin()) {
       showResultDialog.showModal();
       announceResult.textContent = `${Players.getActivePlayer().name} wins`
+      Players.resetPlayer();
       playAgainBtn.addEventListener('click',() => {
       showResultDialog.close();
+      Gameboard.clearCellBoard(); 
+      updateScreen()
       });
     } else if (GameController.checkForDraw()) {
       showResultDialog.showModal();
       announceResult.textContent = "Draw";
       playAgainBtn.addEventListener('click',() => {
       showResultDialog.close();
+      Gameboard.clearCellBoard();   
       });
     }
+  
   }
 
   return {
