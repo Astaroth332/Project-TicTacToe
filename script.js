@@ -12,7 +12,7 @@ let Gameboard = (function() {
     };
 
     const clearCellBoard = () => {
-      gameboard.forEach(cell => cell.addMark(""))
+      gameboard.forEach(cell => cell.addMark(""));
     };
 
     return {
@@ -53,10 +53,13 @@ let Players = (function() {
 
     
     const getPlayerNewName = (playerOneNewName,playerTwoNewName) => {
-      if (playerOneNewName === "") {
+      if (playerOneNewName === "" && playerTwoNewName === "") {
         playerOneNewName = playerOne;
+        playerTwoNewName = playertwo;
       } else if (playerTwoNewName === "") {
         playerTwoNewName = playertwo;
+      } else if (playerOneNewName === "") {
+        playerOneNewName = playerOne;
       }
       players[0].name = playerOneNewName;
       players[1].name = playerTwoNewName;
@@ -68,11 +71,21 @@ let Players = (function() {
 
     const getActivePlayer = () => activePlayer;
 
+    const resetPlayer = () => {
+      if(activePlayer === players[0]) {
+        activePlayer = players[0]
+      } else if (activePlayer === players[1]) {
+        activePlayer = players[0];
+      }
+    }
+
 
     return {
         switchPlayer,
         getActivePlayer,
         getPlayerNewName,
+        resetPlayer,
+
     }
 })();
 
@@ -150,10 +163,7 @@ let screenController = (function() {
         cellButton.disabled = true;
       }
       if (GameController.checkWin()) {
-        playerTurn.textContent = `${currentPlayer.name} wins`
         cellButton.disabled = true;
-      } else if (GameController.checkForDraw()) {
-        playerTurn.textContent = `Its a tie`
       }
       gameBoard.appendChild(cellButton);
     });
@@ -162,9 +172,8 @@ let screenController = (function() {
   function handleClickEvent(e) {
     const cellIndex = e.target.dataset.cellIndex;
     if (!cellIndex) return;
-
     GameController.playRound(cellIndex);
-    
+    showResult();
     updateScreen();
   }
 
@@ -172,6 +181,7 @@ let screenController = (function() {
 
   restartBtn.addEventListener('click', () => {
   Gameboard.clearCellBoard();
+  Players.resetPlayer();
   updateScreen();
   });
 
@@ -180,7 +190,6 @@ let screenController = (function() {
   const confirmBtn = document.querySelector('#confirm-btn');
   const inputPlayerOneNewName = document.getElementById('player-one-name');
   const inputPlayerTwoNewName = document.getElementById('player-two-name');
-
 
   changeNameBtn.addEventListener('click', () => {
     popUpModal.showModal();
@@ -198,6 +207,25 @@ let screenController = (function() {
     updateScreen()
     popUpModal.close();
   });
+  
+  function showResult() {
+    const showResultDialog = document.querySelector('#show-result-dialog');
+    const playAgainBtn = document.querySelector('#play-again-btn');
+    const announceResult = document.querySelector('#announce-winner');
+    if (GameController.checkWin()) {
+      showResultDialog.showModal();
+      announceResult.textContent = `${Players.getActivePlayer().name} wins`
+      playAgainBtn.addEventListener('click',() => {
+      showResultDialog.close();
+      });
+    } else if (GameController.checkForDraw()) {
+      showResultDialog.showModal();
+      announceResult.textContent = "Draw";
+      playAgainBtn.addEventListener('click',() => {
+      showResultDialog.close();
+      });
+    }
+  }
 
   return {
     updateScreen,
